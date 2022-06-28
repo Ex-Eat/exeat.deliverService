@@ -1,14 +1,18 @@
 import { Connection, Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectConnection, InjectModel } from '@nestjs/mongoose';
-import { DeliverDocument, Deliver } from '../schemas/deliver.schema';
+import { Deliver, DeliverDocument, Location } from '../schemas/deliver.schema';
 import { ICreateDeliverDto } from '../dto/create-deliver.dto';
+import { lastValueFrom, map } from 'rxjs';
+import { HttpService } from '@nestjs/axios';
+import { config } from '../config';
 
 @Injectable()
 export class DeliverService {
   constructor(
     @InjectModel(Deliver.name) private deliverModel: Model<DeliverDocument>,
     @InjectConnection() private connection: Connection,
+    private _httpService: HttpService,
   ) {}
 
   async create(createDeliverDto: ICreateDeliverDto): Promise<Deliver> {
@@ -29,6 +33,26 @@ export class DeliverService {
     return await this.deliverModel
       .findOne({ globalUserId: globalUserId })
       .exec();
+  }
+
+  async geocoding(address: string): Promise<Location> {
+    const response = await lastValueFrom(
+      this._httpService
+        .get(
+          'https://api.geoapify.com/v1/geocode/search?text=' +
+            encodeURI(address) +
+            '&apiKey=' +
+            config.GEOCODING_API_KEY,
+        )
+        .pipe(map((response) => response.data)),
+    );
+    console.log(response.features[0].properties);
+
+    return {
+      lat: response.features[0].properties.lat,
+      lng: response.features[0].properties.lon,
+      address: response.features[0].properties.formatted,
+    };
   }
 
   async delete(

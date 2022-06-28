@@ -4,8 +4,6 @@ import { Document } from 'mongoose';
 @Schema()
 export class Location {
   @Prop({ required: true })
-  name: string;
-  @Prop({ required: true })
   address: string;
   @Prop({ required: true })
   lat: number;
@@ -15,7 +13,7 @@ export class Location {
 
 export const LocationSchema = SchemaFactory.createForClass(Location);
 
-@Schema()
+@Schema({ timestamps: true })
 export class Deliver {
   @Prop({ required: true })
   globalUserId: number;

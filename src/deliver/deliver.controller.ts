@@ -1,6 +1,6 @@
 import { Controller, Get, Post } from '@nestjs/common';
 import { DeliverService } from './deliver.service';
-import { Deliver } from '../schemas/deliver.schema';
+import { Deliver, Location } from "../schemas/deliver.schema";
 import { ICreateDeliverDto } from '../dto/create-deliver.dto';
 import { MessagePattern } from '@nestjs/microservices';
 
@@ -18,6 +18,12 @@ export class DeliverController {
   get(data: string): Promise<Deliver> {
     const parsedData = JSON.parse(data);
     return this.deliverService.get(parsedData.globalUserId);
+  }
+
+  @MessagePattern({ cmd: 'geocoding' })
+  geocoding(data: string): Promise<Location> {
+    const parsedData = JSON.parse(data);
+    return this.deliverService.geocoding(parsedData.address);
   }
 
   @MessagePattern({ cmd: 'updateDeliver' })

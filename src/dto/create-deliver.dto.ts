@@ -12,3 +12,8 @@ export interface ICreateDeliverDto {
   notification: boolean;
   movingRadius: number;
 }
+export interface ICreateLocationDto {
+  address: string;
+  lat: number;
+  lng: number;
+}

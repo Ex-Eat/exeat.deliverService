@@ -24,8 +24,6 @@ export class Deliver {
   @Prop({ required: true })
   phoneNumber: string;
   @Prop({ required: true })
-  birthDate: Date;
-  @Prop({ required: true })
   termsOfUse: boolean;
   @Prop({ required: true, type: LocationSchema })
   location: Location;
@@ -33,8 +31,6 @@ export class Deliver {
   patronageCode: string;
   @Prop({ required: true })
   notification: boolean;
-  @Prop({ required: true })
-  movingRadius: number;
 }
 
 export type DeliverDocument = Deliver & Document;

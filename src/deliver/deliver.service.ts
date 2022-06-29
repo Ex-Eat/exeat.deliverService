@@ -46,7 +46,8 @@ export class DeliverService {
         )
         .pipe(map((response) => response.data)),
     );
-    console.log(response.features[0].properties);
+
+    console.log('test');
 
     return {
       lat: response.features[0].properties.lat,

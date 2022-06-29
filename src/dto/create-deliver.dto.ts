@@ -5,12 +5,10 @@ export interface ICreateDeliverDto {
   firstName: string;
   lastName: string;
   phoneNumber: string;
-  birthDate: Date;
   termsOfUse: boolean;
   location: Location;
   patronageCode: string;
   notification: boolean;
-  movingRadius: number;
 }
 export interface ICreateLocationDto {
   address: string;

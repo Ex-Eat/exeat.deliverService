@@ -21,9 +21,10 @@ export class DeliverController {
   }
 
   @MessagePattern({ cmd: 'geocoding' })
-  geocoding(data: string): Promise<Location> {
+  async geocoding(data: string): Promise<Location> {
     const parsedData = JSON.parse(data);
-    return this.deliverService.geocoding(parsedData.address);
+    console.log(parsedData);
+    return await this.deliverService.geocoding(parsedData.address);
   }
 
   @MessagePattern({ cmd: 'updateDeliver' })

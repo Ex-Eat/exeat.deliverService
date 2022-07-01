@@ -12,5 +12,5 @@ export const config = {
   DB_NAME: process.env.DB_NAME || 'exeat',
   DB_USERNAME: process.env.DB_USERNAME || '',
   DB_PASSWORD: process.env.DB_PASSWORD || '',
-  GEOCODING_API_KEY: process.env.GEOCODING_API_KEY || '1264d55f80fe41b5a5f5d036a78a8f61',
+  GEOCODING_API_KEY: process.env.GEOCODING_API_KEY || '',
 };
